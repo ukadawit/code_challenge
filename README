@@ -3,7 +3,7 @@ Usage
 1. For question no 1
 	
 	- run the python script in inside dir="1.backend_api(to run in the blender console)" from your blender environment
-	- start the frontend code in dir "frontend_all in one"
+	- put the files in dir="compiled_frontend" on some server and access the frontend via server url
 
 2. For question no 2
 
@@ -14,4 +14,5 @@ Usage
 	BACKEND
 
 	- run "node ." inside dir="2.backend_api(calls coinApi)"
+	- access http://localhost:4000 in your browser
 
