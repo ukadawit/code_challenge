@@ -55,7 +55,7 @@ export default {
             )
             .catch(
                 err => {
-
+                    this.didReturn = false;
                 }
             )
     }

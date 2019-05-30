@@ -1,0 +1,17 @@
+Usage
+
+1. For question no 1
+	
+	- run the python script in inside dir="1.backend_api(to run in the blender console)" from your blender environment
+	- start the frontend code in dir "frontend_all in one"
+
+2. For question no 2
+
+	FRONTEND
+
+	- You have already started the frontend in question one and navigate to "Question 2: frontend and backend system that call api end point"
+
+	BACKEND
+
+	- run "node ." inside dir="2.backend_api(calls coinApi)"
+

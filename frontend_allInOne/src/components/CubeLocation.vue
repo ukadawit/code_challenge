@@ -8,15 +8,15 @@
       </tr>
       <tr>
         <td>X cordinate</td>
-        <td>{{cubeLocation.x}}</td>
+        <td>{{didReturn ? cubeLocation.x: 'Loading...'}}</td>
       </tr>
       <tr>
         <td>Y cordinate</td>
-        <td>{{cubeLocation.y}}</td>
+        <td>{{didReturn ? cubeLocation.y: 'Loading...'}}</td>
       </tr>
       <tr>
         <td>Z cordinate</td>
-        <td>{{cubeLocation.z}}</td>
+        <td>{{didReturn ? cubeLocation.z: 'Loading...'}}</td>
       </tr>
     </table>
   </div>
@@ -28,7 +28,8 @@ export default {
   data: function() {
     return {
       cubeLocation: [],
-      errorMessage: ''
+      errorMessage: '',
+      didReturn: false
     };
   },
   beforeCreate: function() {
@@ -48,6 +49,7 @@ export default {
       .then(resp => {
           console.log(resp.data)
           this.errorMessage = ''
+          this.didReturn = true
         this.cubeLocation = resp.data;
       })
       .catch(err => {
