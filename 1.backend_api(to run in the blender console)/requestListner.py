@@ -4,26 +4,26 @@
 '''
 # socket is needed to listen for http requests
 from socket import *
+import sys
 
-server_address = ('localhost', 12000)
+sock = socket(AF_INET, SOCK_STREAM)
+server_address = ('localhost', 12002)
 
-socket.bind(server_address)
-
+sock.bind(server_address)
 # Listen for incoming http requests
-socket.listen(1)
+sock.listen(1)
 
 while True:
     # Wait for a connection
     connection, client_address = sock.accept()
     try:
-        while True:
-            # Current location of the cube
-            currentLocation = bpy.data.scenes['Scene'].objects['Cube'].location
-            # foramated location in to json
-            formatedLocation = {'x': currentLocation[0], 'y': currentLocation[1], 'z': currentLocation[2]}
-            
-            connection.sendall(formatedLocation)
-
+        # Current location of the cube from bpy 
+        currentLocation = bpy.data.scenes['Scene'].objects['Cube'].location
+        #  foramated location in to json
+        formatedLocation = '{x : '+currentLocation[0]+', y : '+currentLocation[1]+', z : '+currentLocation[2]+'} '  
+        # send back the location information
+        connection.sendall(formatedLocation.encode('utf-8'))
+       
     finally:
         # Clean up the connection
         connection.close()
