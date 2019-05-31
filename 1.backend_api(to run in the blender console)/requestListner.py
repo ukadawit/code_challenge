@@ -7,12 +7,12 @@ from socket import *
 import sys
 
 sock = socket(AF_INET, SOCK_STREAM)
-server_address = ('localhost', 12002)
+server_address = ('localhost', 12000)
 
 sock.bind(server_address)
 # Listen for incoming http requests
 sock.listen(1)
-
+print('Server started listening')
 while True:
     # Wait for a connection
     connection, client_address = sock.accept()
