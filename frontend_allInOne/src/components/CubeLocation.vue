@@ -37,6 +37,7 @@ export default {
       .getCubeLocation()
       .then(resp => {
           console.log(resp.data),
+          this.didReturn = true;
           this.errorMessage = '';
         this.cubeLocation = resp.data;
       })

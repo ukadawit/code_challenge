@@ -1,29 +1,37 @@
-'''
-    There should be a script that listens to requests from clients and retrun
-    the current location of the object
-'''
-# socket is needed to listen for http requests
-from socket import *
-import sys
+from http.server import BaseHTTPRequestHandler, HTTPServer
+ 
+# HTTPRequestHandler class
+class BlenderLocationRequestListner(BaseHTTPRequestHandler):
+ 
+  # GET
+  def do_GET(self):
+        # Send response status code
+        self.send_response(200)
+ 
+        # Send headers
+        self.send_header('Content-type','text/html')
 
-sock = socket(AF_INET, SOCK_STREAM)
-server_address = ('localhost', 12000)
+        self.send_header("Access-Control-Allow-Origin", "*")
 
-sock.bind(server_address)
-# Listen for incoming http requests
-sock.listen(1)
-print('Server started listening')
-while True:
-    # Wait for a connection
-    connection, client_address = sock.accept()
-    try:
-        # Current location of the cube from bpy 
-        currentLocation = bpy.data.scenes['Scene'].objects['Cube'].location
+        self.end_headers()
+ 
+       # Current location of the cube from bpy 
+        currentLocation = currentLocation = bpy.data.scenes['Scene'].objects['Cube'].location
         #  foramated location in to json
-        formatedLocation = '{x : '+currentLocation[0]+', y : '+currentLocation[1]+', z : '+currentLocation[2]+'} '  
-        # send back the location information
-        connection.sendall(formatedLocation.encode('utf-8'))
+        formatedLocation = '{"x" : '+str(currentLocation[0])+', "y" : '+str(currentLocation[1])+', "z" : '+str(currentLocation[2])+'} '  
        
-    finally:
-        # Clean up the connection
-        connection.close()
+        self.wfile.write(bytes(formatedLocation, "utf8"))
+        return
+ 
+def run():
+  print('starting server...')
+ 
+  # Server settings
+  # Choose port 8080, for port 80, which is normally used for a http server, you need root access
+  server_address = ('localhost', 12000)
+  httpd = HTTPServer(server_address, BlenderLocationRequestListner)
+  print('running server...')
+  httpd.serve_forever()
+ 
+ 
+run()
